@@ -8,28 +8,30 @@ class EncryptCreateKeys extends React.Component{
         super(props);
         this.state = {
             disabled: true,
-            pubKey:null,
-            privKey:null};
+            pubKey:"",
+            privKey:""};
     }
     handleGameClik() {
         this.setState( {disabled: !this.state.disabled} )
     }
     async createKeyPair(){
+        if(this.state.pubKey===""){
 
-        var { privateKeyArmored, publicKeyArmored, revocationCertificate } = await openpgp.generateKey({
-            userIds: [{ name: 'Jon Smith', email: 'jon@example.com' }], // you can pass multiple user IDs
-            rsaBits:4096,
-            passphrase: 'super long and hard to guess secret'           // protects the private key
-        });
+            var { privateKeyArmored, publicKeyArmored, revocationCertificate } = await openpgp.generateKey({
+                userIds: [{ name: 'Jon Smith', email: 'jon@example.com' }], // you can pass multiple user IDs
+                curve:'p256',
+                passphrase: ""           // protects the private key
+            });
 
-        this.setState({privKey:privateKeyArmored});
-        this.setState({pubKey:publicKeyArmored});
+            this.setState({privKey:privateKeyArmored});
+            this.setState({pubKey:publicKeyArmored});
 
-        return {privKey:privateKeyArmored,pubKey:publicKeyArmored}
+            return {privKey:privateKeyArmored,pubKey:publicKeyArmored}
+        }else{
+            this.setState({pubKey:""});
+            this.setState({privKey:""});
+        }
     }
-    //showKeys(){
-     //   if
-   // }
 
     render(){
         return (
@@ -42,10 +44,9 @@ class EncryptCreateKeys extends React.Component{
                         <div className="collapse" id="multiCollapseExample1">
                             <div className="card card-body bg-dark">
 
-                                <p>Create keys:</p>
                                 <button onClick = {()=>{this.handleGameClik.bind(this);this.createKeyPair();}} data-toggle="collapse" className="btn btn-secondary btn-sm" type="button" aria-expanded="false" aria-controls="keysCollapse" href="#keysCollapse">Generate Keys</button>
 
-                                <a className={(this.state.privKey==null?"invisible":"")} >Private Key (Keep Safe!):</a>
+                                <a className={(this.state.privKey===""?"invisible":"")} >Private Key (Keep Safe!):</a>
                                 <div className="my-3 mx-3 collapse shadow" id="keysCollapse" >
 
                                     <div className={(this.state.privKey==null?"":"d-none")} >
@@ -54,10 +55,10 @@ class EncryptCreateKeys extends React.Component{
                                         </div>
                                     </div>
 
-                                    <p className="h6"><small>{this.state.privKey}</small></p>
+                                    <div className="h6"><small>{this.state.privKey.split("\n").map((i,key) => {return <div key={key}>{i}</div>;})}</small></div>
                                 </div>
 
-                                <a className={(this.state.privKey==null?"invisible":"")} >Public Key (Can Share!):</a>
+                                <a className={(this.state.privKey===""?"invisible":"")} >Public Key (Can Share!):</a>
                                 <div className="my-3 mx-3 collapse shadow" id="keysCollapse">
 
                                     <div className={(this.state.privKey==null?"":"d-none")} >
@@ -67,7 +68,7 @@ class EncryptCreateKeys extends React.Component{
                                     </div>
 
 
-                                    <p className="h6"><small>{this.state.pubKey}</small></p>
+                                    <div className="h6"><small>{this.state.pubKey.split("\n").map((i,key) => {return <div key={key}>{i}</div>;})}</small></div>
                                 </div>
 
                             </div>

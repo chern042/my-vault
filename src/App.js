@@ -12,19 +12,10 @@ class App extends React.Component {
                         <a className="navbar-brand" href="/">MyVault</a>
                     </nav>
                     <div className="row">
-                        <div className="col-3">
+                        <div className="col">
                             <p>Encryption</p>
-                            1/3
                             <Encryption/>
                             <EncryptCreateKeys />
-                        </div>
-                        <div className="col-6">
-                            <p>Authorize</p>
-                            2/3
-                        </div>
-                        <div className="col-3">
-                            <p>Chat</p>
-                            3/3
                         </div>
                     </div>
 
