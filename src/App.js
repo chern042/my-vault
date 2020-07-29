@@ -13,7 +13,7 @@ class App extends React.Component {
                     </nav>
                     <div className="row">
                         <div className="col">
-                            <p>Encryption</p>
+                            <h1>MyVault PGP</h1>
                             <Encryption/>
                             <EncryptCreateKeys />
                         </div>

@@ -44,7 +44,7 @@ class EncryptCreateKeys extends React.Component{
                         <div className="collapse" id="multiCollapseExample1">
                             <div className="card card-body bg-dark">
 
-                                <button onClick = {()=>{this.handleGameClik.bind(this);this.createKeyPair();}} data-toggle="collapse" className="btn btn-secondary btn-sm" type="button" aria-expanded="false" aria-controls="keysCollapse" href="#keysCollapse">Generate Keys</button>
+                                <a role="button" onClick = {()=>{this.handleGameClik.bind(this);this.createKeyPair();}} data-toggle="collapse" className="btn btn-secondary btn-sm" aria-expanded="false" aria-controls="keysCollapse" href="#keysCollapse">Generate Keys</a>
 
                                 <a className={(this.state.privKey===""?"invisible":"")} >Private Key (Keep Safe!):</a>
                                 <div className="my-3 mx-3 collapse shadow" id="keysCollapse" >
