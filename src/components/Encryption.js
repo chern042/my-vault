@@ -13,29 +13,12 @@ class Encryption extends React.Component {
             decryptedData:null,
             input:null,
             key:null};
-        //$("#alert").alert('open');
-        console.log('close????');
     }
     handlePubClick() {
-        this.setState( {pubDisabled: !this.state.pubDisabled});
-        if(!this.state.pubDisabled){
-            $('#alertPub').addClass('fade-in')
-            $('#alertPub').show();
-        }else{
-            $('#alertPub').removeClass('fade-in')
-            $('#alertPub').hide();
-        }
-        console.log('whyy')
+        this.setState( {pubDisabled: !this.state.pubDisabled})
     }
     handlePrivClick() {
         this.setState( {privDisabled: !this.state.privDisabled} )
-        if(!this.state.privDisabled){
-            $('#alertPriv').addClass('fade-in')
-            $('#alertPriv').show();
-        }else{
-            $('#alertPriv').removeClass('fade-in')
-            $('#alertPriv').hide();
-        }
     }
     disabledPubInput(){
         if(this.state.pubDisabled){
@@ -45,10 +28,10 @@ class Encryption extends React.Component {
                                onPaste={this.handleChange.bind(this) }
                                onChange={ this.handleChange.bind(this) }
                                className="form-control"
-                               placeholder="Public Key"
+                               placeholder={this.langPublicKey()}
                                aria-describedby="button-addon4" disabled/>
                         <div className="input-group-append" id="button-addon4">
-                            <button className="btn btn-outline-secondary"  onClick={this.handlePubClick.bind(this)}>Save</button>
+                            <button className="btn btn-outline-secondary"  onClick={this.handlePubClick.bind(this)}>{this.langSave()}</button>
                         </div>
                     </div>
              )
@@ -59,10 +42,10 @@ class Encryption extends React.Component {
                                onPaste={this.handleChange.bind(this) }
                                onChange={ this.handleChange.bind(this) }
                                className="form-control"
-                               placeholder="Public Key"
+                               placeholder={this.langPublicKey()}
                                aria-describedby="button-addon4"/>
                         <div className="input-group-append" id="button-addon4">
-                            <button className="btn btn-outline-secondary"  onClick={this.handlePubClick.bind(this)} type="button">Save</button>
+                            <button className="btn btn-outline-secondary"  onClick={this.handlePubClick.bind(this)} type="button">{this.langSave()}</button>
                         </div>
                     </div>
             )
@@ -78,10 +61,10 @@ class Encryption extends React.Component {
                            onPaste={this.handleChange.bind(this) }
                            onChange={this.handleChange.bind(this) }
                            className="form-control"
-                           placeholder="Private Key"
+                           placeholder={this.langPrivateKey()}
                            aria-describedby="button-addon5" disabled/>
                     <div className="input-group-append" id="button-addon5">
-                        <button className="btn btn-outline-secondary"  onClick={this.handlePrivClick.bind(this)} type="button">Save</button>
+                        <button className="btn btn-outline-secondary"  onClick={this.handlePrivClick.bind(this)} type="button">{this.langSave()}</button>
                     </div>
                 </div>
             )
@@ -93,10 +76,10 @@ class Encryption extends React.Component {
                            onPaste={this.handleChange.bind(this) }
                            onChange={this.handleChange.bind(this) }
                            className="form-control"
-                           placeholder="Private Key"
+                           placeholder={this.langPrivateKey()}
                            aria-describedby="button-addon5"/>
                     <div className="input-group-append" id="button-addon5">
-                        <button className="btn btn-outline-secondary"  onClick={this.handlePrivClick.bind(this)} type="button">Save</button>
+                        <button className="btn btn-outline-secondary"  onClick={this.handlePrivClick.bind(this)} type="button">{this.langSave()}</button>
                     </div>
                 </div>
             )
@@ -169,6 +152,8 @@ class Encryption extends React.Component {
                 decryptedData: ""
             });
         }catch(e){
+
+            $('.modal').show();
             console.log(e.toString())
         }
     }
@@ -212,33 +197,42 @@ class Encryption extends React.Component {
             }
         }
     }
+    langPublicKey(){
+        return this.props.lang==="EN"?"Public Key":"Clé Publique";
+    }
+    langPrivateKey(){
+        return this.props.lang==="EN"?"Private Key":"Clé Privée";
+    }
 
+    langSave(){
+        return this.props.lang==="EN"?"Save":"Sauver";
+    }
+    langEncrypt(){
+        return this.props.lang==="EN"?"Encrypt":"Crypter";
+    }
+    langDecrypt(){
+        return this.props.lang==="EN"?"Decrypt":"Décrypter";
+    }
+    langMesssageTo(){
+        return this.props.lang==="EN"?"Message To Encode/Decode":"Message à Encoder/Décoder";
+    }
     render() {
+
         return (
             <div className="container">
-                <div className="alerts m-0 h-25">
 
-                    <div className={"p-1 alert alert-success shadow rounded"} id="alertPub" role="alert">
-                        Saved Public Key!
-                        <a className="close m-1" onClick={()=>{$('#alertPub').hide()}}>×</a>
-                    </div>
-
-                    <div className={"p-1 alert alert-success shadow rounded"} id="alertPriv" role="alert">
-                        Saved Private Key!
-                        <a className="close m-1" onClick={()=>{$('#alertPriv').hide()}}>×</a>
-                    </div>
-                </div>
                 {this.disabledPubInput()}
                 {this.disabledPrivInput()}
 
                 {this.showResults()}
                 <div className="form-group">
-                    <textarea className="form-control" onChange={ this.handleChange.bind(this) } placeholder="Message To Encode/Decode"  id="dataTextField" rows="3"></textarea>
+                    <textarea className="form-control" onChange={ this.handleChange.bind(this) } placeholder={this.langMesssageTo()}  id="dataTextField" rows="3"></textarea>
                     <div className="m-3">
-                        <input className="btn btn-outline-secondary mx-2" onClick={this.textAreaClick.bind(this)} type="submit" value="Encrypt"></input>
-                        <input className="btn btn-outline-secondary mx-2" onClick={this.textAreaClick.bind(this)} type="submit" value="Decrypt"></input>
+                        <input className="btn btn-outline-secondary mx-2" onClick={this.textAreaClick.bind(this)} type="submit" value={this.langEncrypt()}></input>
+                        <input className="btn btn-outline-secondary mx-2" onClick={this.textAreaClick.bind(this)} type="submit" value={this.langDecrypt()}></input>
                     </div>
                     </div>
+
             </div>
         );
     }
