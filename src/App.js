@@ -8,7 +8,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            lang: "EN"
+            lang: "EN",
+            errorType:"None"
         };
     }
     handleLangSwitch(e){
@@ -17,8 +18,13 @@ class App extends React.Component {
     langTitle(){
         return this.state.lang==="EN"?"MyVault":"VoûteMoi";
     }
+    onChange(newName) {
+        console.log('waa')
+        this.setState({ errorType: newName });
+    }
     render() {
         const lang = this.state.lang;
+        var errorType = this.state.errorType;
         return (
             <div id="App">
                 <div className="content container-fluid pt-5 text-center App-header">
@@ -29,8 +35,8 @@ class App extends React.Component {
                     <div className="row">
                         <div className="col">
                             <h1>{this.langTitle()} PGP</h1>
-                            <Encryption lang={lang}/>
-                            <EncryptCreateKeys lang={lang}/>
+                            <Encryption lang={lang} errorType={errorType} onChange={this.onChange.bind(this)}/>
+                            <EncryptCreateKeys lang={lang} errorType={errorType} onChange={this.onChange.bind(this)}/>
                         </div>
                     </div>
 

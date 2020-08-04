@@ -34,3 +34,14 @@
 .alert{
     font-size: 24px;
 }
+
+#toastDiv{
+    position: relative;
+    min-height: 200px;
+}
+
+#toastDiv2{
+    position: absolute;
+    top:0;
+    right:0;
+}

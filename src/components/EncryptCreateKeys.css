@@ -1,15 +1,11 @@
 #keysCollapse{
-    height:250px;
+    height:275px;
     width:100%;
     overflow-y: scroll;
 }
 
 .input{
     width:100%;
-}
-
-#multiCollapseExample1{
-    transition: 1s;
 }
 
 .collapse{
