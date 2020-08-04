@@ -196,7 +196,7 @@ class EncryptCreateKeys extends React.Component{
 
                                     <div className={(this.state.privKey==null?"":"d-none")} >
                                         <div className="spinner-border m-5" role="status">
-                                            <span className="sr-only">Loading...</span>
+                                            <span className="sr-only">{this.langLoading()}...</span>
                                         </div>
                                     </div>
 
